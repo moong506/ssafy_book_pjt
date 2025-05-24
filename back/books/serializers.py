@@ -1,5 +1,5 @@
 from rest_framework import serializers
-# from .models import Book
+from .models import Book, Book_comment, Thread, Thread_comment, Category #, follower
 
 # 참고용, drf with vue 2의 serializers.py
 
@@ -17,4 +17,32 @@ from rest_framework import serializers
 #         # 그런데 이걸 쓰기는 싫고, 읽고만 싶어서 read_only_fields를 이용
 
 # books/serializers.py
-# class 
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
+        read_only_fields = ('category',)
+
+
+class BookCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book_comment
+        fields = '__all__'
+        read_only_fields = ('user', 'book',)
+
+
+class ThreadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Thread
+        fields = '__all__'
+        read_only_fields = ('user', 'book',)
+
+
+class ThreadCommentSerializer(serializers.Serializer):
+    class Meta:
+        model = Thread_comment
+        fields = '__all__'
+        read_only_fields = ('user', 'book',)
+
+
+
