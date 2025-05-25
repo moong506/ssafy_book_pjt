@@ -3,11 +3,14 @@
     <h3>bookdetailview</h3>
     <BookDetail/>
     <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
+    <ThreadList/>
+  
   </div>
 </template>
 
 <script setup>
   import BookDetail from '@/components/BookDetail.vue'
+  import ThreadList from '@/components/ThreadList.vue'
   import { useRoute, useRouter } from 'vue-router'
 
   import { ref } from 'vue'
