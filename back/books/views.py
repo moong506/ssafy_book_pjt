@@ -5,8 +5,9 @@ from rest_framework import status
 
 # permission Decorators
 from rest_framework.decorators import api_view
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.decorators import permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
@@ -24,7 +25,8 @@ from .serializers import BookSerializer, BookCommentSerializer, ThreadSerializer
 # POST요청은 테스트 위해 만든 것! 실제로는 loaddata 이용할듯
 @api_view(['GET', 'POST'])
 def book_list(request):
-    books = Book.objects.all()
+    # books = Book.objects.all()
+    books = get_list_or_404(Book)
     if request.method == 'GET':
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
@@ -32,6 +34,7 @@ def book_list(request):
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            # serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -50,26 +53,29 @@ def book_picks(request, book_pk):
 
 
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def thread_list(request, book_pk):
     if request.method == 'GET':
-        threads = Thread.objects.all()
+        # threads = Thread.objects.all()
+        threads = get_list_or_404(Thread)
         serializer = ThreadSerializer(threads, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         ## test user 생성. postman 사용하기 위함
-        if not request.user.is_authenticated:
-            User = get_user_model()
-            user = User.objects.get(username='admin')
+        # if not request.user.is_authenticated:
+        #     User = get_user_model()
+        #     user = User.objects.get(username='admin')
         ####
 
         book = get_object_or_404(Book, pk=book_pk)
         serializer = ThreadSerializer(data=request.data)
         if serializer.is_valid():
-            # serializer.save(book=book, user=request.user)
+            serializer.save(book=book, user=request.user)
 
             ## postman 사용 위한 test user 이용 코드. 나중에 삭제할것
-            serializer.save(book=book, user=user)
+            # serializer.save(book=book, user=user)
+            ####
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

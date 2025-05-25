@@ -23,7 +23,7 @@ class User(AbstractUser):
         ('F', '여성'),
     ]
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True) # 선택할 수 있는 field로?
-    age = models.IntegerField(null=True, blank=True) #
+    age = models.PositiveIntegerField(null=True, blank=True) #positive integer로 변경
     weekly_age_reading_time = models.IntegerField(null=True, blank=True) #
     annual_reading_amount = models.IntegerField(null=True, blank=True) #
     profile_img = models.CharField(max_length=200, null=True, blank=True)
