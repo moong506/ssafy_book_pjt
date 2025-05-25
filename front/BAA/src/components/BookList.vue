@@ -11,7 +11,7 @@
 
 <script setup>
   
-  import { onMounted, computed, ref} from 'vue'
+  // import { onMounted, computed, ref} from 'vue'
   import BookCard from './BookCard.vue'
   import { useBooksStore } from '@/stores/books'
 //   const categoryStore = useCategoriesStore()
@@ -26,9 +26,6 @@
 //   )
 //   }
 // )
-    onMounted(() => {
-    bookStore.getBooks()
-    })
 </script>
 
 <style scoped>

@@ -6,7 +6,15 @@
 </template>
 
 <script setup>
-    import BookList from '@/components/BookList.vue'
+  import BookList from '@/components/BookList.vue'
+  import { useBooksStore } from '@/stores/books.js'
+  import { onMounted } from 'vue'
+  
+  const bookStore = useBooksStore()
+
+  onMounted(() => {
+  bookStore.getBooks()
+  })
 </script>
 
 <style scoped>
