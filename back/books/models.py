@@ -15,12 +15,15 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     isbn = models.CharField(max_length=50)
-    cover_img = models.CharField(max_length=200) # cover img 지정할 링크
+    cover = models.CharField(max_length=200) # cover img 지정할 링크
     publisher = models.CharField(max_length=100)
     pub_date = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     author_info = models.TextField(max_length=200)
-    # category = models.IntegerField()
+    author_photo = models.CharField(max_length=200)
+    customer_review_rank = models.FloatField()
+    subTitle = models.CharField(max_length=200)
+    # category = models.IntegerField() # foreign key로 씀
 
     is_bestseller = models.CharField(max_length=10, default='N') # bestseller의 경우 y, default는 n
 
@@ -48,7 +51,7 @@ class Thread(models.Model):
     description = models.TextField()
     read_date = models.DateField()
     cover_img = models.CharField(max_length=200)
-    crated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 

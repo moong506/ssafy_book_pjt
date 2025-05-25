@@ -21,7 +21,7 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = '__all__'
-        read_only_fields = ('category',)
+        # read_only_fields = ('category',)
 
 
 class BookCommentSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class ThreadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Thread
         fields = '__all__'
-        read_only_fields = ('user', 'book',)
+        read_only_fields = ('user', 'book', 'created_at', 'updated_at',)
 
 
 class ThreadCommentSerializer(serializers.Serializer):

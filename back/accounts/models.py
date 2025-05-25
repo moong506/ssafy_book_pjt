@@ -8,21 +8,25 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
 
     # foreign key
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    like_books = models.ManyToManyField(Book, related_name='like_users', blank=True)
 
     # table
-    nickname = models.CharField(max_length=20)
-    user_id = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=20, unique=True)
+    # username = models.CharField(max_length=50, null=True, blank=True) #
+    # password = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=100, null=True, blank=True) #
+    last_name = models.CharField(max_length=100, null=True, blank=True) # 
     email = models.CharField(max_length=100, null=True, blank=True)
-    gender = models.CharField(max_length=20) # 선택할 수 있는 field로?
-    age = models.IntegerField()
-    weekly_age_reading_time = models.IntegerField()
-    annual_reading_amount = models.IntegerField()
-    profile_img = models.CharField(max_length=200)
+    GENDER_CHOICES = [
+        ('M', '남성'),
+        ('F', '여성'),
+    ]
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True) # 선택할 수 있는 field로?
+    age = models.IntegerField(null=True, blank=True) #
+    weekly_age_reading_time = models.IntegerField(null=True, blank=True) #
+    annual_reading_amount = models.IntegerField(null=True, blank=True) #
+    profile_img = models.CharField(max_length=200, null=True, blank=True)
 
 
 
