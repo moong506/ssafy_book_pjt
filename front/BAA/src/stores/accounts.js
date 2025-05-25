@@ -9,7 +9,8 @@ export const useAccountStore = defineStore('account', () => {
     console.log(payload)
     axios({
       method: 'POST',
-      url: 'http://127.0.0.1:8000/accounts/signup/',
+      // url: 'http://127.0.0.1:8000/accounts/signup/', // 원래 코드 이거, 아래 registration으로 수정함
+      url: 'http://127.0.0.1:8000/dj-rest-auth/registration/',
       data:{
         ...payload,
     //   username,
@@ -31,6 +32,12 @@ export const useAccountStore = defineStore('account', () => {
 
     //   }
     })
+    // 아래 디버깅때매 추가함
+    ////////////////////////////////
+    .catch(err => {
+  console.error('회원가입 실패:', err.response?.data || err.message)
+    })
+    ////////////////////////////////
   }
 
   const logIn = function({username, password}) {

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '@/views/MainView.vue'
 import BookListView from '@/views/BookListView.vue'
 import BookDetailView from '@/views/BookDetailView.vue'
-import ThreadListView from '@/views/ThreadListView.vue'
+// import ThreadListView from '@/views/ThreadListView.vue'
 import ThreadDetailView from '@/views/ThreadDetailView.vue'
 import ThreadWriteView from '@/views/ThreadWriteView.vue'
 import ProfileView from '@/views/ProfileView.vue'
@@ -27,11 +27,11 @@ const router = createRouter({
       name: 'book',
       component: BookDetailView,
     },
-    {
-      path: '/books/:bookId/threads',
-      name: 'threads',
-      component: ThreadListView,
-    },
+    // {
+    //   path: '/books/:bookId/threads',
+    //   name: 'threads',
+    //   component: ThreadListView,
+    // },
     {
       path: '/books/:bookId/threads/:threadId',
       name: 'thread',
