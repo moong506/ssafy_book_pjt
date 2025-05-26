@@ -2,7 +2,7 @@
   <div>
     <img :src="book.cover" alt="cover_img"  style="width: 200px; height: auto;" >
     <!-- <p>id : {{book.id}}</p> -->
-    <p>{{book.title}}</p>
+    <h3>{{book.title}}</h3>
     <!-- <p>description : {{book.desciption}}</p> -->
     <!-- <p>isbn : {{book.isbn}}</p> -->
 
@@ -17,8 +17,6 @@
     <br>
     <br>
 
-
-
   </div>
 </template>
 
@@ -30,5 +28,50 @@
 </script>
 
 <style scoped>
+  div {
+    width: 220px;
+    min-height: 430px;
+    background-color: #fffdf8;
+    border: 2px solid #f7d8c4;
+    border-radius: 16px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+    overflow: hidden;
+  }
+
+  div:hover {
+    transform: translateY(-4px);
+  }
+
+  img {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 4px 0;
+    text-align: center;
+    font-size: 15px;
+    color: #5a4231;
+  }
+
+  a {
+    color: #ff7f50;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 
 </style>
