@@ -32,7 +32,7 @@
       <input type="text" id="first_name" v-model.trim="firstname">
       
       <br>
-      <label for="email"> 이메일 : </label>
+      <label for="email"> * 이메일 : </label>
       <input type="email" id="email" v-model.trim="email">
       
       

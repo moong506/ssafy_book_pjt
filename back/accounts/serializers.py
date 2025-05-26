@@ -34,11 +34,16 @@ class CustomRegisterSerializer(RegisterSerializer):
         data['gender'] = self.validated_data.get('gender', '')
         data['age'] = self.validated_data.get('age', None)
         return data
+    
+    # def validate_nickname(self, value):
+    #     if User.objects.filter(nickname=value).exists():
+    #         raise serializers.ValidationError("이미 사용 중인 닉네임입니다.")
+    #     return value
 
     def save(self, request):
         user = super().save(request)
         user.nickname = self.validated_data.get('nickname')
-        user.gender = self._validated_data.get('gender')
+        user.gender = self.validated_data.get('gender')
         user.age = self.validated_data.get('age')
 
         # category: foreign key로, 객체 자체를 할당해야함

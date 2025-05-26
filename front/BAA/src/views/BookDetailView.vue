@@ -12,17 +12,22 @@
   import BookDetail from '@/components/BookDetail.vue'
   import ThreadList from '@/components/ThreadList.vue'
   import { useRoute, useRouter } from 'vue-router'
+  import { ref, onMounted } from 'vue'
+  import { useThreadsStore } from '@/stores/threads'
+  import { useAccountStore } from '@/stores/accounts'
 
-  import { ref } from 'vue'
 
   const route = useRoute()
   const router = useRouter()
+  const threadsStore = useThreadsStore()
   // const bookStore = useBooksStore()
   const bookIdParam = route.params.bookId
   const goToThread = (pk) => {
     router.push({name: 'threadWrite', params: {'bookId':bookIdParam}})
   }
-
+  onMounted(() => {
+  threadsStore.getThreads(bookIdParam)
+  })
 </script>
 
 <style scoped>

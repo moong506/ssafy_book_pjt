@@ -82,8 +82,10 @@ def thread_list(request, book_pk):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def thread_detail(request, book_pk, thread_pk):
+    thread = get_object_or_404(Thread, pk = thread_pk)
     if request.method == 'GET':
-        pass
+        serializer = ThreadSerializer(thread)
+        return Response(serializer.data)
     elif request.method == 'PUT':
         pass
     elif request.method == 'DELETE':

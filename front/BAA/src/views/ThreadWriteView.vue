@@ -30,6 +30,7 @@
   // import { usethreadsStore } from '@/stores/threads.js'
   import { ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
+  import { useAccountStore } from '@/stores/accounts'
 
   const title = ref(null)
   const description = ref(null)
@@ -38,6 +39,7 @@
 
   const route = useRoute()
   const router = useRouter()
+  const accountStore = useAccountStore()
   // const store = useThreadsStore()
 
   const bookIdParam = route.params.bookId
@@ -45,15 +47,16 @@
   const createThread = function () {
     axios({
       method: 'post',
-      url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/threads`,
+      url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/threads/`,
       data: {
 
         title: title.value,
-
         description: description.value,
         read_date: readDate.value,
         cover_img: coverImg.value,
-
+      },
+      headers: {
+        'Authorization' : `Token ${accountStore.token}`
       }
     })
       .then(res => {
@@ -61,7 +64,14 @@
         console.log(res.data)
         router.push({name: 'book', params: {'bookId':bookIdParam}})
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        if (err.response) {
+          console.error('서버 응답 에러:', err.response.data)
+          alert(JSON.stringify(err.response.data))
+        } else {
+          console.error(err)
+        }
+      })
   }
 </script>
 
