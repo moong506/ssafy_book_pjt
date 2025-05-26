@@ -35,9 +35,9 @@ class Book_comment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     # table
-    comment_description = models.CharField(max_length=200)
-    comment_created_at = models.DateTimeField(auto_now_add=True)
-    comment_updated_at = models.DateTimeField(auto_now=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Thread(models.Model):
@@ -60,9 +60,10 @@ class Thread_comment(models.Model):
     # user_pk, thread_pk
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
 
     # table
-    description = models.CharField(max_length=200)
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
