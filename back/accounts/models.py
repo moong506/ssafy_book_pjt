@@ -12,7 +12,7 @@ class User(AbstractUser):
     like_books = models.ManyToManyField(Book, related_name='like_users', blank=True)
 
     # table
-    nickname = models.CharField(max_length=20, unique=True)
+    nickname = models.CharField(max_length=20) # , unique=True)
     # username = models.CharField(max_length=50, null=True, blank=True) #
     # password = models.CharField(max_length=50)
     first_name = models.CharField(max_length=100, null=True, blank=True) #

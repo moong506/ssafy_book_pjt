@@ -50,7 +50,7 @@ class Thread(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     read_date = models.DateField()
-    cover_img = models.CharField(max_length=200)
+    cover_img = models.ImageField(upload_to="thread_cover_img/", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
