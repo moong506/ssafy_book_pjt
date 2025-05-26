@@ -53,5 +53,45 @@
 </script>
 
 <style scoped>
+  div {
+    width: 90%;               /* 화면의 90%를 기본 너비로 사용 */
+    max-width: 1000px;        /* 최대 너비 제한 (너무 넓어지는 걸 방지) */
+    margin: 40px auto;
+    padding: 32px;
+    background-color: #fffdf8;
+    border: 2px solid #f7d8c4;
+    border-radius: 16px;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Gowun Dodum', sans-serif;
+    color: #5a4231;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 12px 0 6px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 4px 0;
+    text-align: left;
+    width: 100%;
+  }
+
 
 </style>

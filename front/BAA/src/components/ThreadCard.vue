@@ -7,7 +7,7 @@
         {{ thread.user.username}}
       </RouterLink> -->
     </p>
-    <hr>
+
   </div>
 </template>
 
@@ -34,5 +34,30 @@
 </script>
 
 <style scoped>
+  p {
+  font-size: 16px;
+  color: #5a4231;
+  margin: 8px 0;
+  font-family: 'Gowun Dodum', sans-serif;
+}
+
+button {
+  background-color: #ffad60;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 12px;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #ff944d;
+  transform: translateY(-2px);
+}
 
 </style>

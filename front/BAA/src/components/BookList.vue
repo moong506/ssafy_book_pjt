@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="book-list-container">
     <BookCard
     v-for="book in bookStore.books"
     :key="book.pk"
@@ -29,5 +29,18 @@
 </script>
 
 <style scoped>
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff8f0; /* 따뜻하고 부드러운 배경 */
+  }
+  .book-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
 </style>

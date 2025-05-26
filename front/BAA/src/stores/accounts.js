@@ -39,10 +39,11 @@ export const useAccountStore = defineStore('account', () => {
     // 아래 디버깅때매 추가함
     ////////////////////////////////
     .catch(err => {
-      console.log(err.response.data)
-      console.error('회원가입 실패:', err.response?.data || err.message)
-      const errName = Object.values(err.response.data)
-      alert(errName)
+      router.push({name:'login'})
+      // console.log(err.response.data)
+      // console.error('회원가입 실패:', err.response?.data || err.message)
+      // const errName = Object.values(err.response.data)
+      // alert(errName)
     })
 
     
@@ -68,7 +69,11 @@ export const useAccountStore = defineStore('account', () => {
       localStorage.setItem('password', password.value) 
       router.push({name:'main'})
     })
-    .catch(err =>console.log(err))
+    .catch(err =>{
+      console.error('로그인 실패:', err.response?.data || err.message)
+      const errName = Object.values(err.response.data)
+      alert(errName)
+    })
   }
 
 

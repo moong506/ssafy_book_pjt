@@ -110,5 +110,60 @@
 </script>
 
 <style scoped>
+  div {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 32px;
+    background-color: #fffdf8;
+    border: 2px solid #f7d8c4;
+    border-radius: 16px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Gowun Dodum', sans-serif;
+    color: #5a4231;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  label {
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
+  input, select {
+    padding: 8px 12px;
+    border: 1.5px solid #f3c8a2;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fffaf5;
+    color: #5a4231;
+  }
+
+  input[type="submit"] {
+    background-color: #ffad60;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    padding: 10px;
+    margin-top: 16px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  input[type="submit"]:hover {
+    background-color: #ff944d;
+    transform: translateY(-2px);
+  }
+
+  b {
+    font-size: 17px;
+    color: #ce7c5b;
+    margin-bottom: 4px;
+    display: block;
+  }
 
 </style>
