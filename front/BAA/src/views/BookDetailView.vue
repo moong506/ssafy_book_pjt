@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h3>bookdetailview</h3>
+ 
     <BookDetail/>
-    <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
+    <div class="button-wrapper">
+      <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
+    </div>
     <ThreadList/>
   
   </div>
@@ -29,7 +31,31 @@
   threadsStore.getThreads(bookIdParam)
   })
 </script>
-
+  
 <style scoped>
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin: 16px 0;
+  }
+
+  button {
+    background-color: #ffad60;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+
+  button:hover {
+    background-color: #ff944d;
+    transform: translateY(-2px);
+  }
+
 
 </style>

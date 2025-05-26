@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1 v-if="isLogin" >{{ username }}님 환영합니다!</h1>
-    <h1 v-else> 환영합니다! 로그인 후 이용하세요</h1>
+    <h1>BBA에 오신걸 환영합니다!</h1>
+    <h1 v-if="isLogin" >안녕하세요 {{ username }}님</h1>
+    <h1 v-else> 로그인 후 이용하세요</h1>
   </div>
 </template>
 
