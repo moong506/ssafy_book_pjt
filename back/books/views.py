@@ -82,14 +82,22 @@ def thread_list(request, book_pk):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def thread_detail(request, book_pk, thread_pk):
+    book = get_object_or_404(Book, pk=book_pk)
     thread = get_object_or_404(Thread, pk = thread_pk)
     if request.method == 'GET':
         serializer = ThreadSerializer(thread)
         return Response(serializer.data)
+    
     elif request.method == 'PUT':
-        pass
+        serializer = ThreadSerializer(thread, data=request.data)
+        if serializer.is_valid():
+            serializer.save(book=book, user=request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     elif request.method == 'DELETE':
-        pass
+        thread.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
