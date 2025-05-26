@@ -33,7 +33,7 @@ export const useAccountStore = defineStore('account', () => {
     })
     .then(res => {
       console.log('회원가입성공')
-      router.push({name:'main'})
+      router.push({name:'login'})
 
     })
     // 아래 디버깅때매 추가함
