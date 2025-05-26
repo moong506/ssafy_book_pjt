@@ -30,6 +30,7 @@ def book_list(request):
     if request.method == 'GET':
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
+    
     elif request.method == 'POST':
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid():
@@ -61,6 +62,7 @@ def thread_list(request, book_pk):
         threads = get_list_or_404(Thread)
         serializer = ThreadSerializer(threads, many=True)
         return Response(serializer.data)
+    
     elif request.method == 'POST':
         ## test user 생성. postman 사용하기 위함
         # if not request.user.is_authenticated:
@@ -81,6 +83,8 @@ def thread_list(request, book_pk):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def thread_detail(request, book_pk, thread_pk):
     book = get_object_or_404(Book, pk=book_pk)
     thread = get_object_or_404(Thread, pk = thread_pk)
@@ -106,22 +110,56 @@ def thread_likes(request, book_pk, thread_pk):
 
 
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def book_comment_list(request, book_pk):
-    pass
+    if request.method == 'GET':
+        # comments = Book_comment.objects.all()
+        comments = get_list_or_404(Book_comment)
+        serializer = BookCommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # book = Book.objects.get(pk=book_pk)
+        book = get_object_or_404(Book, pk=book_pk)
+        serializer = BookCommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(book=book, user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['PUT', 'DELETE'])
-def book_comment_update(request, book_pk, book_comment_pk):
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def book_comment_detail(request, book_pk, book_comment_pk):
     pass
 
 
 @api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def thread_comment_list(request, book_pk, thread_pk):
-    pass
+    if request.method == 'GET':
+        comments = Thread_comment.objects.all()
+        serializer = ThreadCommentSerializer(comments, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        book = get_object_or_404(Book, pk=book_pk)
+        thread = get_object_or_404(Thread, pk=thread_pk)
+        serializer = ThreadCommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(book=book, thread=thread, user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PUT', 'DELETE'])
-def thread_comment_update(request, book_pk, thread_pk, thread_comment_pk):
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def thread_comment_detail(request, book_pk, thread_pk, thread_comment_pk):
     pass
 
 

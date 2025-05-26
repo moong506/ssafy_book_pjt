@@ -26,10 +26,17 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class BookCommentSerializer(serializers.ModelSerializer):
+    class BookSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Book
+            fields = ('title',)
+
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Book_comment
         fields = '__all__'
-        read_only_fields = ('user', 'book',)
+        read_only_fields = ('user', 'book', 'created_at', 'updated_at',)
 
 
 class ThreadSerializer(serializers.ModelSerializer):
@@ -39,12 +46,25 @@ class ThreadSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user', 'book', 'created_at', 'updated_at',)
 
+# book/thread detail serializer 추가하기
 
-class ThreadCommentSerializer(serializers.Serializer):
+class ThreadCommentSerializer(serializers.ModelSerializer):
+    class BookSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Book
+            fields = ('title',)
+
+    class ThreadSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Thread
+            fields = ('title',)
+
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Thread_comment
         fields = '__all__'
-        read_only_fields = ('user', 'book',)
+        read_only_fields = ('user', 'book', 'thread', 'created_at', 'updated_at',)
 
 
 
