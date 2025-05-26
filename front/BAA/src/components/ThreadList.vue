@@ -2,13 +2,12 @@
   <div>
     <br>
     <b>쓰레드 목록</b>
-    <ThreadCard
-    v-for="thread in threadsStore.threads"
-    :key="thread.id"
-    :thread= "thread"
-    
-    />
- 
+      <ThreadCard
+      v-for="thread in threadsStore.threads"
+      :key="thread.id"
+      :thread= "thread"
+      />
+
   </div>
   
 
@@ -23,7 +22,7 @@
   import { useThreadsStore } from '@/stores/threads'
   const threadsStore = useThreadsStore()
   
-  
+
 
 </script>
 

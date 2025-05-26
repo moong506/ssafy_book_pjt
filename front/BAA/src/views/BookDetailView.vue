@@ -6,7 +6,7 @@
       <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
     </div>
     <ThreadList/>
-  
+    
   </div>
 </template>
 

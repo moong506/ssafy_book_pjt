@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>BooksListView</h1>
+    <h1>도서 목록</h1>
     <BookList/>
   </div>
 </template>
