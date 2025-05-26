@@ -21,9 +21,9 @@ urlpatterns = [
     # book 댓글 생성 및 전체 댓글 조회 
     path('books/<int:book_pk>/book_comments/', views.book_comment_list, name='book_comment_list'),
     # book 개별 댓글 수정 & 삭제
-    path('books/<int:book_pk>/book_comments/<int:book_comment_pk>/', views.book_comment_detail, name='book_comment_update'),
+    path('books/<int:book_pk>/book_comments/<int:book_comment_pk>/', views.book_comment_detail, name='book_comment_detail'),
     # thread 댓글 생성 및 전체 댓글 조회 
     path('books/<int:book_pk>/threads/<int:thread_pk>/thread_comments/', views.thread_comment_list, name='thread_comment_list'),
     # thread 개별 댓글 수정 & 삭제
-    path('books/<int:book_pk>/threads/<int:thread_pk>/thread_comments/<int:thread_comment_pk>', views.thread_comment_detail, name='thread_comment_update'),
+    path('books/<int:book_pk>/threads/<int:thread_pk>/thread_comments/<int:thread_comment_pk>/', views.thread_comment_detail, name='thread_comment_detail'),
 ]

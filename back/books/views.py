@@ -93,7 +93,7 @@ def thread_detail(request, book_pk, thread_pk):
         return Response(serializer.data)
     
     elif request.method == 'PUT':
-        serializer = ThreadSerializer(thread, data=request.data)
+        serializer = ThreadSerializer(thread, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(book=book, user=request.user)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -134,7 +134,22 @@ def book_comment_list(request, book_pk):
 @authentication_classes([TokenAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def book_comment_detail(request, book_pk, book_comment_pk):
-    pass
+    # book = Book.objects.get(pk=book_pk)
+    # comment = Book_comment.objects.get()
+    if request.method == 'PUT':
+        # book = get_object_or_404(Book, pk=book_pk)
+        comment = get_object_or_404(Book_comment, pk=book_comment_pk)
+        serializer = BookCommentSerializer(comment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        comment = get_object_or_404(Book_comment, pk=book_comment_pk)
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 @api_view(['GET', 'POST'])
@@ -160,6 +175,19 @@ def thread_comment_list(request, book_pk, thread_pk):
 @authentication_classes([TokenAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def thread_comment_detail(request, book_pk, thread_pk, thread_comment_pk):
-    pass
+        # book = get_object_or_404(Book, pk=book_pk)
+        # thread = get_object_or_404(Thread, pk=thread_pk)
+    comment = get_object_or_404(Thread_comment, pk=thread_comment_pk)
+    if request.method == 'PUT':
+        serializer = ThreadCommentSerializer(comment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        # comment = get_object_or_404(Thread_comment, pk=thread_comment_pk)
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
