@@ -1,23 +1,27 @@
 import axios from "axios"
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useAccountStore } from '@/stores/accounts'
 
-export const usethreadsStore = defineStore('thread', () => {
+export const useThreadsStore = defineStore('thread', () => {
   const threads = ref([])
-
-  const getThreads = function () {
+  const accountStore = useAccountStore()
+  // const selectedThread = ref(null)
+  const getThreads = function (bookId) {
     axios({
       method: 'get',
-      url: 'http://127.0.0.1:8000/api/v1/books/:bookId/threads'
+      url: `http://127.0.0.1:8000/api/v1/books/${bookId}/threads`,
+      headers: {
+        'Authorization' : `Token ${accountStore.token}`
+      }
     })
     .then(res => {
       threads.value = res.data
-    //   for (let i = 0; i < articles.value.length; i++){
-    //     articles.value[i].id = i+1
-
-    //   }
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 
-  return { books, getBooks }
-})
+  return { threads, getThreads } 
+}, { persist: true })

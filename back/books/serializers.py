@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book, Book_comment, Thread, Thread_comment, Category #, follower
+from accounts.serializers import UserSerializer
 
 # 참고용, drf with vue 2의 serializers.py
 
@@ -32,6 +33,7 @@ class BookCommentSerializer(serializers.ModelSerializer):
 
 
 class ThreadSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # user 필드를 UserSerializer로 직렬화
     class Meta:
         model = Thread
         fields = '__all__'

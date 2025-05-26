@@ -28,7 +28,7 @@
   const bookStore = useBooksStore()
   const bookIdParam = route.params.bookId
   const book = ref(null)
-  console.log(bookIdParam)
+  // console.log(bookIdParam)
   const getBook = function () {
     axios({
       method: 'GET',
