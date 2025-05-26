@@ -168,3 +168,6 @@ AUTH_USER_MODEL = 'accounts.User'
 REST_AUTH = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
+
+# ACCOUNT_SIGNUP_FIELDS = ['username', 'email', 'password1', 'password2', 'nickname', 'category', 'gender', 'age']
+

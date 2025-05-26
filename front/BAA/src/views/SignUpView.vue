@@ -25,11 +25,11 @@
 
       <br>
       <label for="last_name"> 성 : </label>
-      <input type="text" id="last_name" v-model.trim="lastname">
+      <input type="text" id="last_name" v-model.trim="last_name">
 
       <br>
       <label for="first_name"> 이름 : </label>
-      <input type="text" id="first_name" v-model.trim="firstname">
+      <input type="text" id="first_name" v-model.trim="first_name">
       
       <br>
       <label for="email"> * 이메일 : </label>
@@ -48,8 +48,8 @@
       <input type="number" id="age" v-model.trim="age">
       
       <br>
-      <label for="weekly_age_reading_time"> 주간 평균 독서량 : </label>
-      <input type="number" id="weekly_age_reading_time" v-model.trim="weekly_age_reading_time">
+      <label for="weekly_avg_reading_time"> 주간 평균 독서량 : </label>
+      <input type="number" id="weekly_avg_reading_time" v-model.trim="weekly_avg_reading_time">
       
       <br>
       <label for="annual_reading_amount"> 연간 독서량 : </label>
@@ -72,12 +72,12 @@
   const password1 = ref(null)
   const password2 = ref(null)
   const nickname = ref(null)
-  const lastname = ref(null)
-  const firstname = ref(null)
+  const last_name = ref(null)
+  const first_name = ref(null)
   const email = ref(null)
   const genderchoices = ref(null)
   const age = ref(null)
-  const weekly_age_reading_time = ref(null)
+  const weekly_avg_reading_time = ref(null)
   const annual_reading_amount = ref(null)
   // const profile_img = ref(null)
 
@@ -95,12 +95,12 @@
       password1 : password1.value,
       password2 : password2.value,
       nickname : nickname.value, 
-      lastname : lastname.value, 
-      firstname :firstname.value,
+      last_name : last_name.value, 
+      first_name : first_name.value,
       email : email.value,
       gender : genderchoices.value,
       age : age.value,
-      weekly_age_reading_time : weekly_age_reading_time.value,
+      weekly_avg_reading_time : weekly_avg_reading_time.value,
       annual_reading_amount : annual_reading_amount.value,
       // profile_img : profile_img.value 
     }

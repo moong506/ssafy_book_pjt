@@ -14,8 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'gender',
             'age',
+            'first_name',
+            'last_name',
             'profile_img',
-            'weekly_age_reading_time',
+            'weekly_avg_reading_time',
             'annual_reading_amount',
             'category',
         )
@@ -26,6 +28,10 @@ class CustomRegisterSerializer(RegisterSerializer):
     category = serializers.IntegerField(required=False) # required 나중에 true로 바꾸기
     gender = serializers.CharField(required=False)
     age = serializers.IntegerField(required=False)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    weekly_avg_reading_time = serializers.IntegerField(required=False)
+    annual_reading_amount = serializers.IntegerField(required=False)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
@@ -33,6 +39,10 @@ class CustomRegisterSerializer(RegisterSerializer):
         data['category'] = self.validated_data.get('category', None)
         data['gender'] = self.validated_data.get('gender', '')
         data['age'] = self.validated_data.get('age', None)
+        data['first_name'] = self.validated_data.get('first_name', '')
+        data['last_name'] = self.validated_data.get('last_name', '')
+        data['weekly_avg_reading_time'] = self.validated_data.get('weekly_avg_reading_time', None)
+        data['annual_reading_amount'] = self.validated_data.get('annual_reading_amount', None)
         return data
     
     # def validate_nickname(self, value):
@@ -45,6 +55,10 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.nickname = self.validated_data.get('nickname')
         user.gender = self.validated_data.get('gender')
         user.age = self.validated_data.get('age')
+        user.first_name = self.validated_data.get('first_name')
+        user.last_name = self.validated_data.get('last_name')
+        user.weekly_avg_reading_time = self.validated_data.get('weekly_avg_reading_time')
+        user.annual_reading_amount = self.validated_data.get('annual_reading_amount')
 
         # category: foreign key로, 객체 자체를 할당해야함
         category_id = self.validated_data.get('category')
