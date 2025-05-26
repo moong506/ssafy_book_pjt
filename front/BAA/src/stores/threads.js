@@ -1,12 +1,13 @@
 import axios from "axios"
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useAccountStore } from '@/stores/accounts'
 
 export const useThreadsStore = defineStore('thread', () => {
   const threads = ref([])
   const accountStore = useAccountStore()
-  // const selectedThread = ref(null)
+  const selectedThread = ref(null)
+  const isUpdateMode = computed(() => selectedThread !== null)
   const getThreads = function (bookId) {
     axios({
       method: 'get',
@@ -23,5 +24,5 @@ export const useThreadsStore = defineStore('thread', () => {
     })
   }
 
-  return { threads, getThreads } 
+  return { threads, getThreads, selectedThread, isUpdateMode } 
 }, { persist: true })
