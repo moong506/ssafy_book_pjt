@@ -1,11 +1,14 @@
+# # -*- coding: utf-8 -*-
+
 import json
 from openai import OpenAI
 from pydantic import BaseModel
 from accounts.models import User
+
 # user = User.objects.all(user_pk)로 query
 # user.age
 # model 여기서 쓰려면 django 설정해야함
-
+# user = User.objects.all()
 # OpenAI API Key 가져오기
 import os
 from dotenv import load_dotenv

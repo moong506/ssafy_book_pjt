@@ -209,6 +209,8 @@ def thread_likes(request, book_pk, thread_pk):
 @authentication_classes([TokenAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def book_comment_list(request, book_pk):
+    print(request.user)
+
     if request.method == 'GET':
         # comments = Book_comment.objects.all()
         comments = get_list_or_404(Book_comment)
