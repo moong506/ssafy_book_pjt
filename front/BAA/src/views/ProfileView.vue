@@ -48,9 +48,10 @@
 
 <style scoped>
   .profile-card {
-    max-width: 500px;
+    width: 90%;
+    max-width: 800px;
     margin: 50px auto;
-    padding: 32px;
+    padding: 40px;
     background-color: #fff8f1;
     border: 2px solid #f7d8c4;
     border-radius: 20px;
@@ -58,16 +59,18 @@
     font-family: 'Gowun Dodum', sans-serif;
     color: #5a4231;
     text-align: center;
+    box-sizing: border-box;
   }
 
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: #ce7c5b;
+    font-size: 24px;
   }
 
   .profile-img {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
@@ -76,8 +79,8 @@
   }
 
   .default-img {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     background-color: #ffe3d1;
     display: flex;
@@ -92,16 +95,38 @@
     list-style: none;
     padding: 0;
     text-align: left;
+    font-size: 17px;
   }
 
   .profile-info li {
-    font-size: 16px;
-    padding: 8px 0;
+    padding: 10px 0;
     border-bottom: 1px dashed #f0c7a4;
   }
 
   .profile-info li strong {
     color: #ce7c5b;
-  margin-right: 6px;
-}
+    margin-right: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .profile-card {
+      padding: 24px;
+    }
+
+    .profile-img,
+    .default-img {
+      width: 100px;
+      height: 100px;
+      font-size: 40px;
+    }
+
+    .profile-info {
+      font-size: 15px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
 </style>
+

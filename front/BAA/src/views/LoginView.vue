@@ -36,7 +36,8 @@
 
 <style scoped>
   div {
-    max-width: 400px;
+    width: 90%;
+    max-width: 600px; /* 더 넓게 설정 */
     margin: 60px auto;
     padding: 32px;
     background-color: #fffdf8;
@@ -45,6 +46,7 @@
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
     font-family: 'Gowun Dodum', sans-serif;
     color: #5a4231;
+    box-sizing: border-box;
   }
 
   form {
@@ -60,12 +62,14 @@
 
   input[type="text"],
   input[type="password"] {
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1.5px solid #f3c8a2;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 16px;
     background-color: #fffaf5;
     color: #5a4231;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   input[type="submit"] {
@@ -74,9 +78,10 @@
     font-weight: bold;
     border: none;
     border-radius: 10px;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    margin-top: 12px;
+    margin-top: 16px;
+    font-size: 16px;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease, transform 0.1s ease;
   }
@@ -86,4 +91,16 @@
     transform: translateY(-2px);
   }
 
+  @media (max-width: 768px) {
+    div {
+      padding: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
 </style>
