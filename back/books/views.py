@@ -18,9 +18,15 @@ from .serializers import BookSerializer, BookCommentSerializer, ThreadSerializer
 
 # Create your views here.
 
-# def index(request):
-#     pass
+def index(request):
+    pass
 
+# def recommend_response(request):
+#     # 이 안에 utils.py의 ai 코드를 함수로 쓰고..
+#     # 그걸 main페이지에서 함수를 호출한 다음에 user=request.user
+#     # response로 data를 잘 보내면 된다고..?
+#     # return Response(data)
+#     pass
 
 # POST요청은 테스트 위해 만든 것! 실제로는 loaddata 이용할듯
 @api_view(['GET', 'POST'])

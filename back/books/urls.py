@@ -5,7 +5,7 @@ from . import views
 app_name = 'books'
 
 urlpatterns = [
-    # path('', views.index, name=''),
+    path('', views.index, name='index'),
     # 전체 도서 리스트 조회
     path('books/', views.book_list, name='book_list'),
     # 단일 도서 조회
