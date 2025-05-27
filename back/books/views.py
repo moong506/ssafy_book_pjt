@@ -55,7 +55,7 @@ def book_picks(request, book_pk):
 
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def thread_list(request, book_pk):
     if request.method == 'GET':
         # threads = Thread.objects.all()
@@ -84,7 +84,7 @@ def thread_list(request, book_pk):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def thread_detail(request, book_pk, thread_pk):
     book = get_object_or_404(Book, pk=book_pk)
     thread = get_object_or_404(Thread, pk = thread_pk)
@@ -111,7 +111,7 @@ def thread_likes(request, book_pk, thread_pk):
 
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def book_comment_list(request, book_pk):
     if request.method == 'GET':
         # comments = Book_comment.objects.all()
@@ -154,7 +154,7 @@ def book_comment_detail(request, book_pk, book_comment_pk):
 
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication, BasicAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def thread_comment_list(request, book_pk, thread_pk):
     if request.method == 'GET':
         comments = Thread_comment.objects.all()

@@ -110,8 +110,10 @@
 </script>
 
 <style scoped>
+
   div {
-    max-width: 600px;
+    width: 90%;
+    max-width: 800px; /* 더 넓게 설정 */
     margin: 40px auto;
     padding: 32px;
     background-color: #fffdf8;
@@ -120,6 +122,7 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     font-family: 'Gowun Dodum', sans-serif;
     color: #5a4231;
+    box-sizing: border-box;
   }
 
   form {
@@ -133,13 +136,16 @@
     margin-top: 8px;
   }
 
-  input, select {
-    padding: 8px 12px;
+  input,
+  select {
+    padding: 10px 14px;
     border: 1.5px solid #f3c8a2;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 16px;
     background-color: #fffaf5;
     color: #5a4231;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   input[type="submit"] {
@@ -149,8 +155,8 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    padding: 10px;
-    margin-top: 16px;
+    padding: 12px;
+    margin-top: 20px;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.08);
   }
 
@@ -160,10 +166,27 @@
   }
 
   b {
-    font-size: 17px;
+    font-size: 18px;
     color: #ce7c5b;
     margin-bottom: 4px;
     display: block;
   }
 
+  @media (max-width: 768px) {
+    div {
+      padding: 20px;
+    }
+
+    input,
+    select {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+
+    input[type="submit"] {
+      font-size: 15px;
+      padding: 10px;
+    }
+  }
 </style>
+

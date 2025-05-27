@@ -11,10 +11,10 @@
       <label for="read_date">읽은 날짜: </label>
       <input type="date" id="read_date" v-model="readDate">
       <br>
-      
+<!--       
       <label for="cover_img">이미지(나중에 자동 생성으로 구현 예정): </label>
       <input type="text" id="cover_img" v-model="coverImg">
-      <br>
+      <br> -->
       
       <input v-if="!isUpdateMode" type="submit" value="Thread 생성">
       <input v-else type="submit" value="Thread 수정">
@@ -35,7 +35,7 @@
   const title = ref(null)
   const description = ref(null)
   const readDate = ref(null)
-  const coverImg = ref(null)
+  // const coverImg = ref(null)
 
   const route = useRoute()
   const router = useRouter()
@@ -52,7 +52,7 @@
       title: title.value,
       description: description.value,
       read_date: readDate.value,
-      cover_img: coverImg.value,
+      // cover_img: coverImg.value,
     }
 
     const config = {

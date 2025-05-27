@@ -6,6 +6,7 @@
       <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
     </div>
     <ThreadList/>
+    <BookCommentList/>
     
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script setup>
   import BookDetail from '@/components/BookDetail.vue'
   import ThreadList from '@/components/ThreadList.vue'
+  import BookCommentList from '@/components/BookCommentList.vue'
   import { useRoute, useRouter } from 'vue-router'
   import { ref, onMounted } from 'vue'
   import { useThreadsStore } from '@/stores/threads'
