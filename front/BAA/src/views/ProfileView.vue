@@ -17,7 +17,7 @@
         <li><strong>이름:</strong> {{ profile.last_name }} {{ profile.first_name }}</li>
         <li><strong>성별:</strong> {{ profile.gender === 'M' ? '남성' : '여성' }}</li>
         <li><strong>나이:</strong> {{ profile.age }}</li>
-        <li><strong>주간 독서 시간:</strong> {{ profile.weekly_avg_reading_time }}시간</li>
+        <li><strong>주간 평균 독서 시간:</strong> {{ profile.weekly_avg_reading_time }}시간</li>
         <li><strong>연간 독서량:</strong> {{ profile.annual_reading_amount }}권</li>
       </ul>
     </div>
