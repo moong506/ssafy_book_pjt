@@ -14,7 +14,11 @@
     </p>
     <p> 작가 정보 : {{ book.author_info }}</p>
     <!-- <p>is_bestseller : {{ book.is_bestseller }}</p> -->
-  
+
+    <!-- 찜하기/찜취소 버튼 -->
+    <button @click="togglePick" style="margin-top: 16px;">
+      {{ picked ? "찜 취소" : "찜하기" }}
+    </button>
   </div>
 </template>
 
@@ -23,23 +27,51 @@
   import { useRoute } from 'vue-router'
   import { useBooksStore } from '@/stores/books'
   import { ref, onMounted } from 'vue'
-
+  import { useAccountStore } from '@/stores/accounts'
+  const accountStore = useAccountStore()
   const route = useRoute()
   const bookStore = useBooksStore()
   const bookIdParam = route.params.bookId
   const book = ref(null)
+  const picked =ref(false) // 찜 상태
   // console.log(bookIdParam)
+  // console.log(accountStore.token)
   const getBook = function () {
     axios({
       method: 'GET',
-      url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/`
+      url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/`,
+      // headers: {
+      // 'Authorization': `Token ${localStorage.getItem('token')}`,
+      // }
     })
     .then(res=>{
       book.value = res.data
+      // back에서 is_picked 받으면
+      picked.value = res.data.is_picked
     })
     .catch(err => console.log(err))
   }
 
+  // 찜/찜취소 비동기 요청 함수
+  const togglePick = function () {
+    axios({
+      method: 'POST',
+      url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/picks/`,
+      headers: {
+        'Authorization': `Token ${accountStore.token}`,
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+        picked.value = res.data.is_picked // True/False (백엔드에서 내려줌)
+      })
+      .catch(err => {
+        console.log(err)
+        if (err.response) {
+          console.log('에러 상세:', err.response.status, err.response.data)
+        }
+      })
+  }
 
 
 

@@ -19,10 +19,34 @@ from accounts.serializers import UserSerializer
 
 # books/serializers.py
 class BookSerializer(serializers.ModelSerializer):
+    is_picked = serializers.SerializerMethodField()
+
     class Meta:
         model = Book
-        fields = '__all__'
+        # fields = '__all__' 
         # read_only_fields = ('category',)
+        fields = (
+            'id',
+            'category',
+            'title',
+            'description',
+            'isbn',
+            'cover',
+            'publisher',
+            'pub_date',
+            'author',
+            'author_info',
+            'author_photo',
+            'customer_review_rank',
+            'subTitle',
+            'is_picked',
+        )
+
+    def get_is_picked(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return obj.like_users.filter(id=request.user.id).exists()
+        return False
 
 
 class BookCommentSerializer(serializers.ModelSerializer):
