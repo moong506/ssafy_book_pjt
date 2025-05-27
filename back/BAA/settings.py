@@ -16,10 +16,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # # OpenAI API Key 가져오기
-# import os
-# from dotenv import load_dotenv
-# load_dotenv()
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+import os
+from dotenv import load_dotenv
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
