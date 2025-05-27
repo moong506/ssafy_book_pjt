@@ -42,7 +42,8 @@
   }
 
   button {
-    background-color: #ffad60;
+    background-color: #FF9E7C;
+
     color: white;
     border: none;
     padding: 10px 18px;

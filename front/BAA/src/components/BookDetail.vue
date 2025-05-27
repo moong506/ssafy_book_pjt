@@ -16,9 +16,10 @@
     <!-- <p>is_bestseller : {{ book.is_bestseller }}</p> -->
 
     <!-- 찜하기/찜취소 버튼 -->
-    <button @click="togglePick" style="margin-top: 16px;">
+    <button v-if="accountStore.token" @click="togglePick" style="margin-top: 16px;">
       {{ picked ? "찜 취소" : "찜하기" }}
     </button>
+
   </div>
 </template>
 
@@ -37,9 +38,15 @@
   // console.log(bookIdParam)
   // console.log(accountStore.token)
   const getBook = function () {
+    const headers = {}
+    if (accountStore.token) {
+      headers['Authorization'] = `Token ${accountStore.token}`
+    }
+
     axios({
       method: 'GET',
       url: `http://127.0.0.1:8000/api/v1/books/${bookIdParam}/`,
+      headers
       // headers: {
       // 'Authorization': `Token ${localStorage.getItem('token')}`,
       // }
@@ -47,7 +54,10 @@
     .then(res=>{
       book.value = res.data
       // back에서 is_picked 받으면
+      console.log(res.data)
       picked.value = res.data.is_picked
+
+      
     })
     .catch(err => console.log(err))
   }
@@ -124,6 +134,27 @@
     text-align: left;
     width: 100%;
   }
-
+  
+.button-wrapper {
+  display: flex;
+  justify-content: center; /* 오른쪽 정렬 */
+  margin: 20px 0;
+}
+button {
+  background-color: #ffad60;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+button:hover {
+  background-color: #ff944d;
+  transform: translateY(-2px);
+}
 
 </style>

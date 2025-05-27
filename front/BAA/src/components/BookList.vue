@@ -62,7 +62,7 @@
 
 <style scoped>
  .book-list-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 40px auto;
   padding: 24px;
   background-color: #fffaf4;
@@ -141,9 +141,10 @@
   /* 도서 카드 그리드 */
   .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
     justify-items: center;
+    justify-content: center;
   }
 
 

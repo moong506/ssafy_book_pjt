@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <img :src="book.cover" alt="cover_img"  >
     <!-- <p>id : {{book.id}}</p> -->
     <h3>{{book.title}}</h3>
@@ -28,6 +28,24 @@
 </script>
 
 <style scoped>
+
+
+  .card {
+    width: 100%;
+    max-width: 500px;
+    padding: 24px;
+    background-color: #fffdf8;
+    border: 2px solid #f7d8c4;
+    border-radius: 16px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+    font-family: 'Gowun Dodum', sans-serif;
+    color: #5a4231;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
   div {
     max-width: 800px; /* 기존 600px → 800px로 넓힘 */
     margin: 40px auto;
@@ -45,7 +63,7 @@
   }
 
   img {
-    width: 220px;
+    width: 250px;
     height: 300px;
     object-fit: cover;
     border-radius: 12px;

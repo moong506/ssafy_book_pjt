@@ -3,8 +3,12 @@ from rest_framework import serializers
 from .models import User
 from books.models import Book, Category
 
+class SimpleBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('id', 'title', 'cover')
 class UserSerializer(serializers.ModelSerializer):
-
+    like_books = SimpleBookSerializer(many=True, read_only=True)
     class Meta:
         model = User
         fields = (
@@ -20,7 +24,9 @@ class UserSerializer(serializers.ModelSerializer):
             'weekly_avg_reading_time',
             'annual_reading_amount',
             'category',
+            'like_books',
         )
+
 
 
 class CustomRegisterSerializer(RegisterSerializer):
