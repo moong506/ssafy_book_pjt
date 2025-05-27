@@ -15,18 +15,84 @@ from django.contrib.auth import get_user_model
 # from .serializers import ArticleListSerializer, ArticleSerializer
 from .models import Book, Book_comment, Thread, Thread_comment, Category # , follower
 from .serializers import BookSerializer, BookCommentSerializer, ThreadSerializer, ThreadCommentSerializer
-from accounts.models import User
+
+from openai import OpenAI
+from django.conf import settings
+import json
 
 # Create your views here.
-
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def index(request):
-    user = User.objects.all()
-    user_list = list(user)
-    target_user = User.objects.get(username=request.user)
-    user_idx = user_list.index(target_user)
-    print(user_idx)
-    print(user[user_idx])
 
+    user = request.user
+    books = user.like_books.all()
+
+    prompt = f"""
+    나는 {user.age}세 {user.gender}이고, 주간 독서량은 {user.weekly_avg_reading_time}시간이야.
+    내가 최근에 재미있게 읽은 책은 다음과 같아:
+    {', '.join(book.title for book in books)}
+
+    이 정보를 바탕으로 나에게 어울리는 책을 5권만 JSON 배열 형태로 추천해줘. 
+    형식은 반드시 아래처럼 맞춰줘:
+
+    [
+      {{
+        "book": "책 제목",
+        "author": "작가 이름",
+        "content": "간단한 책 설명"
+      }},
+      ...
+    ]
+
+    JSON 외에 다른 말은 절대 하지 말고, 결과만 배열 형태로 반환해줘.
+    """
+
+    try:
+        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        content = response.choices[0].message.content
+
+        try:
+            recommendations = json.loads(content)
+        except json.JSONDecodeError:
+            return Response({"error": "GPT 응답을 JSON으로 파싱할 수 없습니다.", "raw": content}, status=500)
+
+        return Response({"recommendations": recommendations})
+
+    except Exception as e:
+        print("OpenAI 호출 중 오류 발생:", e)
+        return Response({"error": str(e)}, status=500)
+    # user = request.user
+    # books = user.like_books.all()
+
+    # prompt = f"""
+    # 나는 {user.age}세 {user.gender}이고, 주간 독서량은 {user.weekly_avg_reading_time}시간이야.
+    # 내가 최근에 재미있게 읽은 책은 다음과 같아:
+    # {', '.join(book.title for book in books)}
+    # 이 정보를 바탕으로 나에게 어울리는 책을 무조건 5권 추천해줘. 각 책에 간단한 설명도 부탁해.
+    # """
+
+    # try:
+    #     client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    #     response = client.chat.completions.create(
+    #         model="gpt-4o-mini",
+    #         messages=[
+    #             {"role": "user", "content": prompt}
+    #         ]
+    #     )
+    #     response_text = response.choices[0].message.content
+    #     return Response({"recommendations": response_text})
+
+    # except Exception as e:
+    #     print("OpenAI 호출 중 오류 발생:", e)
+    #     return Response({"error": str(e)}, status=500)
+    # return Response({'message': 'OK'})
 
 # def recommend_response(request):
 #     # 이 안에 utils.py의 ai 코드를 함수로 쓰고..

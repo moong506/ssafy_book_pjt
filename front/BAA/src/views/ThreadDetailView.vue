@@ -38,7 +38,7 @@ const thread = ref(null)
 
 const threadId = route.params.threadId
 const bookId = route.params.bookId
-
+const isUpdateMode = ref(false)
 
 const fetchThreadDetail = function () {
   const headers = {}
@@ -62,7 +62,7 @@ const fetchThreadDetail = function () {
 
   const onUpdateThread = function(){
       threadsStore.selectedThread = thread.value
-    
+      isUpdateMode.value =true
     router.push({name: 'threadWrite', params: {'bookId':bookId}})
   }
   
@@ -94,7 +94,14 @@ onMounted(() => {
   
 })
 onBeforeRouteLeave(() => {
-  threadsStore.selectedThread = null
+
+  if (!isUpdateMode.value){
+
+    threadsStore.selectedThread = null
+  }
+  else{
+    isUpdateMode.value = false
+  }
 })
 </script>
 
