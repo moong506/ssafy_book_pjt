@@ -13,7 +13,7 @@ export const useThreadsStore = defineStore('thread', () => {
   if (accountStore.token) {
     headers['Authorization'] = `Token ${accountStore.token}`
   }
-
+  
   axios({
     method: 'get',
     url: `http://127.0.0.1:8000/api/v1/books/${bookId}/threads`,

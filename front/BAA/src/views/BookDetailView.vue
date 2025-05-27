@@ -3,7 +3,7 @@
  
     <BookDetail/>
     <div class="button-wrapper">
-      <button @click="goToThread(route.params.bookId)">Thread 작성하기</button>
+      <button v-if="accountStore.token" @click="goToThread(route.params.bookId)">Thread 작성하기</button>
     </div>
     <ThreadList/>
     <BookCommentList/>
@@ -24,7 +24,7 @@
   const route = useRoute()
   const router = useRouter()
   const threadsStore = useThreadsStore()
-  // const bookStore = useBooksStore()
+  const accountStore = useAccountStore()
   const bookIdParam = route.params.bookId
   const goToThread = (pk) => {
     router.push({name: 'threadWrite', params: {'bookId':bookIdParam}})
@@ -37,8 +37,8 @@
 <style scoped>
   .button-wrapper {
     display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-    margin: 16px 0;
+    justify-content: center; /* 오른쪽 정렬 */
+    margin: 20px 0;
   }
 
   button {

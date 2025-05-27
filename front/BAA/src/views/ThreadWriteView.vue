@@ -16,8 +16,8 @@
       <input type="text" id="cover_img" v-model="coverImg">
       <br> -->
       
-      <input v-if="!isUpdateMode" type="submit" value="Thread 생성">
-      <input v-else type="submit" value="Thread 수정">
+      <input v-if="!isUpdateMode" type="submit" value="Thread 생성" class="updateThread">
+      <input v-else type="submit" value="Thread 수정" class="createThread">
     </form>
     <button @click="goBack">뒤로가기</button>
 
@@ -31,6 +31,7 @@
   import { useAccountStore } from '@/stores/accounts'
   import { ref, onMounted, computed } from 'vue'
   import { useThreadsStore } from '@/stores/threads'
+  import { onBeforeRouteLeave } from 'vue-router'
 
   const title = ref(null)
   const description = ref(null)
@@ -87,6 +88,7 @@
         config
       )
         .then(res => {
+          threadsStore.selectedThread = null
           router.push({ name: 'book', params: { bookId: bookIdParam } })
         })
         .catch(err => {
@@ -98,26 +100,38 @@
 
   
   onMounted(() => {
-    const thread = threadsStore.selectedThread
-    if (thread) {
-      title.value = thread.title
-      description.value = thread.description
-      readDate.value = thread.read_date
-      coverImg.value = thread.cover_img
-      
+  if (accountStore.token) {
+      const thread = threadsStore.selectedThread
+      if (thread) {
+        title.value = thread.title
+        description.value = thread.description
+        readDate.value = thread.read_date
+      } else {
+
+        title.value = ''
+        description.value = ''
+        readDate.value = ''
+      }
+    } else {
+      alert('로그인하세요')
+      router.push({ name: 'login' })
     }
+  })
+  onBeforeRouteLeave(() => {
+    threadsStore.selectedThread = null
   })
 </script>
 
 <style scoped>
   div {
-    max-width: 600px;
+    width: 90%;
+    max-width: 800px; /* 기존보다 넓게 */
     margin: 40px auto;
-    padding: 32px;
+    padding: 40px 48px;
     background-color: #fffdf8;
     border: 2px solid #f7d8c4;
-    border-radius: 16px;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.06);
     font-family: 'Gowun Dodum', sans-serif;
     color: #5a4231;
   }

@@ -5,7 +5,7 @@
     <p>읽은 날짜 : {{ thread.read_date }}</p>
     <p>작성자 : {{ thread.user.username }}</p>
     
-    <div v-if="thread.user.username === accountStore.username">
+    <div v-if="thread.user.username === accountStore.username && accountStore.token">
       
       <button class="update-button" @click="onUpdateThread">수정</button>
       <button class="delete-button" @click="onDeleteThread">삭제</button>
@@ -36,26 +36,32 @@ const bookId = route.params.bookId
 
 
 const fetchThreadDetail = function () {
-  axios({
-      method: 'get',
-      url: `http://127.0.0.1:8000/api/v1/books/${bookId}/threads/${threadId}`,
-      headers: {
-        'Authorization' : `Token ${accountStore.token}`
-      }
-    })
-    .then(res => {
-      thread.value = res.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  const headers = {}
+  if (accountStore.token) {
+    headers['Authorization'] = `Token ${accountStore.token}`
   }
 
+  axios({
+    method: 'get',
+    url: `http://127.0.0.1:8000/api/v1/books/${bookId}/threads/${threadId}`,
+    headers
+  })
+  .then(res => {
+    thread.value = res.data
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
   const onUpdateThread = function(){
-    threadsStore.selectedThread = thread.value
+      threadsStore.selectedThread = thread.value
+    
     router.push({name: 'threadWrite', params: {'bookId':bookId}})
-  
   }
+  
+  
 
   
   const onDeleteThread = function(){
