@@ -1,10 +1,21 @@
 <template>
-  <b>댓글</b>
-  <div @submit.prevent="createBookComment">
-    <form>
-      <textarea v-model="newBookComment"></textarea>
-      <input type="submit" value="작성">
-    </form>
+  <div class="card-container">
+    <div class= "comment-card">
+
+      <b>댓글</b>
+      <div @submit.prevent="createBookComment" v-if="accountStore.token">
+        <form >
+          <textarea v-model="newBookComment"></textarea>
+          <input type="submit" value="작성">
+        </form>
+      </div>
+      <BookCommentCard
+      v-for="bookComment in bookCommentsStore.bookComments"
+      :key="bookComment.id"
+      :bookComment= "bookComment"
+      class="book-comment-card"
+      />
+    </div>
   </div>
 </template>
 
@@ -13,11 +24,13 @@
   import { useRoute } from 'vue-router'
   import { useAccountStore } from '@/stores/accounts'
   import { ref, onMounted, computed } from 'vue'
-  // import { useThreadsStore } from '@/stores/threads'
+  import { useBookCommentsStore } from '@/stores/bookcomments.js'
+  import BookCommentCard from './BookCommentCard.vue'
   const accountStore = useAccountStore()
   const route = useRoute()
   const newBookComment = ref(null)
   const bookId = route.params.bookId
+  const bookCommentsStore = useBookCommentsStore()
 
   const createBookComment = function(){
     axios({
@@ -31,18 +44,88 @@
       }
     })
     .then(res => {
-      newBookComment.vaule = null
+      
+      newBookComment.value = null
+      bookCommentsStore.getBookComments(bookId)
     })
     .catch(err => {
       console.error('댓글 생성 실패:', err.response?.data || err)
       alert('댓글 생성 중 오류가 발생했습니다.')
     })
   }
-
+  onMounted(() => {
+   bookCommentsStore.getBookComments(bookId)
+  })
 
 
 </script>
 
 <style scoped>
+  .card-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+  .comment-card {
+    background-color: #fffaf0; /* 부드러운 배경 */
+    border: 2px solid #FAD390; /* 반죽 노랑 */
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 30px 0;
+  }
 
+  b {
+    display: block;
+    font-size: 20px;
+    color: #8B5E3C; /* 소스색 */
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #FAF1E4; /* 마요네즈 */
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid #FAD390; /* 반죽 노랑 */
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    padding: 10px;
+    font-size: 15px;
+    font-family: 'Gowun Dodum', sans-serif;
+    border: 2px solid #FAD390;
+    border-radius: 8px;
+    background-color: #fffaf5;
+    color: #5a4231;
+  }
+
+  input[type="submit"] {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background-color: #8B5E3C; /* 소스색 */
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #6f462b; /* 소스 진한 색 */
+    transform: translateY(-2px);
+  }
+
+  /* 댓글 카드 사이 여백 */
+  .book-comment-card + .book-comment-card {
+    margin-top: 12px;
+  }
 </style>
+

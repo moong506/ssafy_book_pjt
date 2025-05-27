@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <br>
-    <b>쓰레드 목록</b>
+  <div class="card-container">
+    <div>
+      <br>
+      <b>쓰레드 목록</b>
       <ThreadCard
       v-for="thread in threadsStore.threads"
       :key="thread.id"
       :thread= "thread"
       />
-
+      
+    </div>
   </div>
   
 
@@ -27,6 +29,11 @@
 </script>
 
 <style scoped>
+  .card-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
   div {
     margin-top: 40px;
     padding: 20px;

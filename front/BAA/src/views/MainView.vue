@@ -1,13 +1,16 @@
 <template>
-  <div class="welcome-card">
-    <h1 class="title">BAA에 오신 걸 환영합니다! 🎉</h1>
-    <h2 class="message" v-if="isLogin">안녕하세요, <span class="username">{{ username }}</span> 님 😊</h2>
-    <h2 class="message" v-else>로그인 후 이용해주세요! ✨</h2>
-  </div>
+  <div>
+
+    <div class="welcome-card">
+      <h1 class="title">BAA에 오신 걸 환영합니다! 🎉</h1>
+      <h2 class="message" v-if="isLogin">안녕하세요, <span class="username">{{ username }}</span> 님 😊</h2>
+      <h2 class="message" v-else>로그인 후 이용해주세요! ✨</h2>
+    </div>
     <div class="baa-card">
       <h2>BAA (Book All Around)</h2>
       <p>독서가 생활이 되는 공간, BAA는 언제 어디서든 책을 가까이하는 문화를 지향합니다.</p>
     </div>
+  </div>
 </template>
 
 <script setup>
