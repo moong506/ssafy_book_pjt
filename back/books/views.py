@@ -44,13 +44,29 @@ def book_list(request):
 def book_detail(request, book_pk):
     book = get_object_or_404(Book, pk=book_pk)
     if request.method == 'GET':
-        serializer = BookSerializer(book)
+        serializer = BookSerializer(book, context={'request':request})
         return Response(serializer.data)
 
 
 @api_view(['POST'])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def book_picks(request, book_pk):
-    pass
+    book = get_object_or_404(Book, pk=book_pk)
+    user = request.user
+
+    if book in user.like_books.all():
+        user.like_books.remove(book)
+        is_picked = False
+    else:
+        user.like_books.add(book)
+        is_picked = True
+
+    return Response({
+        'book_id': book.pk,
+        'is_picked': is_picked,
+        'pick_count': book.like_users.count(),
+    })
 
 
 @api_view(['GET', 'POST'])
@@ -59,7 +75,8 @@ def book_picks(request, book_pk):
 def thread_list(request, book_pk):
     if request.method == 'GET':
         # threads = Thread.objects.all()
-        threads = get_list_or_404(Thread)
+        # threads = get_list_or_404(Thread)
+        threads = Thread.objects.filter(book_id=book_pk)
         serializer = ThreadSerializer(threads, many=True)
         return Response(serializer.data)
     
