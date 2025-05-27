@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>도서 목록</h1>
+    <h1 class="book_list_title">도서 목록</h1>
     <BookList/>
   </div>
 </template>
@@ -18,5 +18,10 @@
 </script>
 
 <style scoped>
-
+.book_list_title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #ce7c5b; /* 기존 테마에 어울리는 색상 (선택사항) */
+}
 </style>

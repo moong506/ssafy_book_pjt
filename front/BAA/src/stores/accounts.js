@@ -39,11 +39,23 @@ export const useAccountStore = defineStore('account', () => {
     // 아래 디버깅때매 추가함
     ////////////////////////////////
     .catch(err => {
-      router.push({name:'login'})
-      // console.log(err.response.data)
-      // console.error('회원가입 실패:', err.response?.data || err.message)
-      // const errName = Object.values(err.response.data)
-      // alert(errName)
+      if (err.response) {
+        const status = err.response.status
+        if (status === 500) {
+          // 500 에러면 로그인 페이지로 리다이렉트
+          router.push({ name: 'login' })
+        } else {
+          // 기타 오류 메시지 표시
+          const errName = Object.values(err.response.data)
+          // const message = err.response.data?.detail || '오류가 발생했습니다.'
+          alert(`오류 코드 ${status}: ${errName}`)
+        }
+      } else {
+        // 서버 응답이 없는 경우 (네트워크 오류 등)
+        alert('네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요.')
+      }
+
+      console.error('에러 디버깅:', err)
     })
 
     
@@ -70,9 +82,9 @@ export const useAccountStore = defineStore('account', () => {
       router.push({name:'main'})
     })
     .catch(err =>{
-      console.error('로그인 실패:', err.response?.data || err.message)
+      const status = err.response.status
       const errName = Object.values(err.response.data)
-      alert(errName)
+      alert(`오류 코드 ${status}: ${errName}`)
     })
   }
 

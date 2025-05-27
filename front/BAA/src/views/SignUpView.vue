@@ -24,6 +24,21 @@
       <input type="text" id="nickname" v-model.trim="nickname">
 
       <br>
+      <label for="email"> * 이메일 : </label>
+      <input type="email" id="email" v-model.trim="email">
+      
+      
+      <br>
+      <label for="gender"> * 성별 : </label>
+      <select id="gender" v-model.trim="genderchoices">
+        <option value="M">남성</option>
+        <option value="F">여성</option>
+      </select>
+      <br>
+      <label for="age"> * 나이 : </label>
+      <input type="number" id="age" v-model.trim="age">
+      
+      <br>
       <label for="last_name"> 성 : </label>
       <input type="text" id="last_name" v-model.trim="last_name">
 
@@ -31,21 +46,6 @@
       <label for="first_name"> 이름 : </label>
       <input type="text" id="first_name" v-model.trim="first_name">
       
-      <br>
-      <label for="email"> * 이메일 : </label>
-      <input type="email" id="email" v-model.trim="email">
-      
-      
-      <br>
-      <label for="gender"> 성별 : </label>
-      <select id="gender" v-model.trim="genderchoices">
-        <option value="M">남성</option>
-        <option value="F">여성</option>
-      </select>
-      
-      <br>
-      <label for="age"> 나이 : </label>
-      <input type="number" id="age" v-model.trim="age">
       
       <br>
       <label for="weekly_avg_reading_time"> 주간 평균 독서량 : </label>
@@ -104,6 +104,18 @@
       annual_reading_amount : annual_reading_amount.value,
       // profile_img : profile_img.value 
     }
+    Object.keys(userInfo).forEach(key => {
+      if (
+        userInfo[key] === null ||
+        userInfo[key] === undefined ||
+        userInfo[key] === ''
+      ) {
+        delete userInfo[key];
+      }
+    });
+
+
+
     accountStore.signUp(userInfo)
 
   }

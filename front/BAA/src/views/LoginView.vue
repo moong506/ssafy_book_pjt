@@ -11,6 +11,15 @@
 
       <input type="submit" value=" 로그인">
     </form>
+
+    <div class="signup-wrapper" >
+      <h2 class="signup-prompt">아직 회원이 아니신가요?</h2>
+      <RouterLink class="signup-link" :to="{name: 'signUp'}">
+        회원 가입 하러 가기
+      </RouterLink>
+    </div>
+
+
   </div>
 </template>
 
@@ -103,4 +112,36 @@
       padding: 10px;
     }
   }
+  .signup-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .signup-prompt {
+    font-size: 16px;
+    color: #8B5E3C;
+    margin: 0;
+  }
+
+  .signup-link {
+    background-color: #ffe0b2;
+    color: #5a4231;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+
+  .signup-link:hover {
+    background-color: #ffbc8b;
+    color: white;
+    transform: translateY(-2px);
+  }
+
 </style>

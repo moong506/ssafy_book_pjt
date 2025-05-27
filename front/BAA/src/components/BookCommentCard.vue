@@ -13,46 +13,46 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import { useRoute, useRouter } from 'vue-router'
-import { useBookCommentsStore } from '@/stores/bookcomments.js'
-import { useAccountStore } from '@/stores/accounts'
-import { format } from 'date-fns'
+  import axios from 'axios'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useBookCommentsStore } from '@/stores/bookcomments.js'
+  import { useAccountStore } from '@/stores/accounts'
+  import { format } from 'date-fns'
 
-const route = useRoute()
-const router = useRouter()
-const accountStore = useAccountStore()
-const bookCommentsStore = useBookCommentsStore()
+  const route = useRoute()
+  const router = useRouter()
+  const accountStore = useAccountStore()
+  const bookCommentsStore = useBookCommentsStore()
 
-const props = defineProps({
-  bookComment: Object
-})
-const bookComment = props.bookComment
-const bookCommentId = bookComment.id
-const bookId = route.params.bookId
-
-const onDeleteBookComment = function () {
-  axios({
-    method: 'DELETE',
-    url: `http://127.0.0.1:8000/api/v1/books/${bookId}/book_comments/${bookCommentId}`,
-    headers: {
-      'Authorization': `Token ${accountStore.token}`
-    }
+  const props = defineProps({
+    bookComment: Object
   })
-    .then(() => {
-      bookCommentsStore.getBookComments(bookId)
-    })
-    .catch(err => {
-      console.error(err)
-      router.push({ name: 'book', params: { bookId } }).then(() => {
-        location.reload()
-      })
-    })
-}
+  const bookComment = props.bookComment
+  const bookCommentId = bookComment.id
+  const bookId = route.params.bookId
 
-const formatDate = (datetime) => {
-  return format(new Date(datetime), 'yyyy-MM-dd HH:mm')
-}
+  const onDeleteBookComment = function () {
+    axios({
+      method: 'DELETE',
+      url: `http://127.0.0.1:8000/api/v1/books/${bookId}/book_comments/${bookCommentId}`,
+      headers: {
+        'Authorization': `Token ${accountStore.token}`
+      }
+    })
+      .then(() => {
+        bookCommentsStore.getBookComments(bookId)
+      })
+      .catch(err => {
+        console.error(err)
+        router.push({ name: 'book', params: { 'bookId': bookId, } }).then(() => {
+          location.reload()
+        })
+      })
+  }
+
+  const formatDate = (datetime) => {
+    return format(new Date(datetime), 'yyyy-MM-dd HH:mm')
+  }
 </script>
 
 <style scoped>
@@ -97,6 +97,7 @@ const formatDate = (datetime) => {
 }
 
 .delete-button:hover {
-  background-color: #e28165;
+ 
+  background-color: #ff3333;
 }
 </style>

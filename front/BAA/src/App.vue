@@ -25,6 +25,10 @@
   import { computed } from 'vue'
   const accountStore = useAccountStore()
   const isLogin = computed(() => accountStore.isLogin)
+  const finduser = function(){
+    
+  }
+
 </script>
 
 
