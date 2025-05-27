@@ -15,11 +15,18 @@ from django.contrib.auth import get_user_model
 # from .serializers import ArticleListSerializer, ArticleSerializer
 from .models import Book, Book_comment, Thread, Thread_comment, Category # , follower
 from .serializers import BookSerializer, BookCommentSerializer, ThreadSerializer, ThreadCommentSerializer
+from accounts.models import User
 
 # Create your views here.
 
 def index(request):
-    pass
+    user = User.objects.all()
+    user_list = list(user)
+    target_user = User.objects.get(username=request.user)
+    user_idx = user_list.index(target_user)
+    print(user_idx)
+    print(user[user_idx])
+
 
 # def recommend_response(request):
 #     # 이 안에 utils.py의 ai 코드를 함수로 쓰고..
@@ -136,6 +143,8 @@ def thread_likes(request, book_pk, thread_pk):
 @authentication_classes([TokenAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def book_comment_list(request, book_pk):
+    print(request.user)
+
     if request.method == 'GET':
         # comments = Book_comment.objects.all()
         comments = get_list_or_404(Book_comment)

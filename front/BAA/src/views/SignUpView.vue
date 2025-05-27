@@ -48,11 +48,11 @@
       
       
       <br>
-      <label for="weekly_avg_reading_time"> 주간 평균 독서량 : </label>
+      <label for="weekly_avg_reading_time"> 주간 평균 독서량(시간) : </label>
       <input type="number" id="weekly_avg_reading_time" v-model.trim="weekly_avg_reading_time">
       
       <br>
-      <label for="annual_reading_amount"> 연간 독서량 : </label>
+      <label for="annual_reading_amount"> 연간 독서량(권) : </label>
       <input type="number" id="annual_reading_amount" v-model.trim="annual_reading_amount">
       
       <br>
